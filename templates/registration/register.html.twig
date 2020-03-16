@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+ 
+
+    
+
+    {% for flash_message in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flash_message }}
+    </div>
+{% endfor %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 cursor">
+           
+
+            <div class="bg-white rounded p-4 my-5" >
+                
+                    <div class="p2-flex-grow-2 bd-highlight">
+                        <h3>Registro</h3>
+                        {{ form_start(registrationForm) }}
+                        {{ form_row(registrationForm.email) }}
+                        {{ form_row(registrationForm.plainPassword) }}        
+                        {{ form_row(registrationForm.user_nombre) }}
+                        {{ form_row(registrationForm.agreeTerms) }}
+        <button class="btn btn-primary">Registrar</button>
+    {{ form_end(registrationForm) }}
+                    </div>
+                
+
+                
+            
+        </div>
+
+
+{% endblock %}

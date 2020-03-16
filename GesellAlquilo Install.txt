@@ -1,0 +1,166 @@
+
+Proyecto Gesell Alquilo
+
+composer create-project symfony/website-skeleton gesellalquilo
+symfony server:start
+symfony local:server:stop
+ 
+
+Para Crear Base de Datos
+DATABASE_URL=mysql://root@127.0.0.1:3306/gesellalquilo
+
+Crear Base de Datos
+php bin/console doctrine:database:create
+ 
+Para usar con usuario de la base nueva 
+DATABASE_URL=mysql://user_gesellalquilo:Compaq23+@127.0.0.1:3306/gesellalquilo
+ 
+Crear Entidades (tablas de la base)
+php bin/console make:entity
+
+Actualizar base de datos
+php bin/console doctrine:schema:update --force
+
+Crear Entity User
+php bin/console make:user 
+
+
+Crear ABM
+php bin/console make:crud TipoOperaciones
+
+
+Crear Controladoor Registrar Usuario
+php bin/console make:controller
+RegistroController
+
+Para login de usuarios
+composer require symfony/security-bundle
+
+php bin/console make:registration-form
+
+Usar bcrypt en vez de argon2i
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+
+
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    form_themes:
+        - 'bootstrap_4_layout.html.twig'
+
+
+Crear Login
+
+
+C:\dev\Symfony\gesellalquilo> php bin/console make:auth
+
+ What style of authentication do you want? [Empty authenticator]:
+  [0] Empty authenticator
+  [1] Login form authenticator
+ > 1
+
+ The class name of the authenticator to create (e.g. AppCustomAuthenticator):
+ > LoginFormAuthenticator
+
+ Choose a name for the controller class (e.g. SecurityController) [SecurityController]:
+ >
+
+ Do you want to generate a '/logout' URL? (yes/no) [yes]:
+ >
+
+
+
+-----
+
+JWT 
+
+set OPENSSL_CONF=c:\OpenSSL-Win64\bin\openssl.cfg
+
+cd \OpenSSL-Win64\bin
+
+
+./openssl genrsa -out private.pem -aes256 4096
+
+a9a1a5478c028b4f3a5f32dcde7f4295
+
+./openssl rsa -pubout -in private.pem -out public.pem
+
+-----
+CORS
+
+#inside php-fpm bash
+composer req cors
+
+------------
+Events
+
+ php bin/console debug:event-dispatcher
+
+
+
+Rest API
+
+user:
+ - register: POST /api/register
+ - login: POST /api/login_check
+
+ # Receta para instalar symfony/orm-pack
+composer req orm
+ 
+ # Receta para instalar lexik/jwt-authentication-bundle:
+ Bundle para proteger nuestros servicios mediante JSON Web Tokens.
+
+composer req jwt-auth
+
+# Comando para instalar la libreria de lcobucci/jwt
+Libreria complementaria para utilizar con lexik/jwt-authentication-bundle para proveer de muchísimos más encoders para los json web tokens a generar
+composer require lcobucci/jwt
+
+
+# Receta para instalar jms/serializer-bundle:
+# Este es un paquete contribuido, para poder usarlo hay que permitirle a 
+# Symfony Flex para que lo use, si no lo hemos hecho anteriormente
+composer config extra.symfony.allow-contrib true
+ 
+# Luego ejecutar este comando
+Bundle que permite serializar nuestra data de salida en un formato personalizado (xml, json, entre otros).
+composer require jms/serializer-bundle
+
+
+ 
+# Receta para instalar friendsofsymfony/rest-bundle:  
+Bundle para convertir nuestros métodos dentro de los controladores, en recursos o servicios http (GET, POST, PUT, entre otros) utilizando anotaciones.
+composer require friendsofsymfony/rest-bundle
+composer require friendsofsymfony/rest-bundle
+ 
+# Receta para instalar sensio/framework-extra-bundle:
+ Bundle necesario por FOSRestBundle para el soporte de rutas.
+composer require sensio/framework-extra-bundle
+
+# Receta para instalar nelmio/api-doc-bundle
+Bundle para generar documentación de nuestro RESTful API.
+composer require nelmio/api-doc-bundle
+
+------
+TEST Tokens
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.
+    eyJpYXQiOjE1ODMxODExMDAsImV4cCI6MTU4MzE4NDcwMCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZ2VkOEBnZy5jb20ifQ.
+    Qk1HYvqilClMxARNahkE2lgg0QLhBgR6bR35iINGFLhg38C3_8iIJcsTJj8KYGi6rnOrk_TjDEWo20lFYMfkI2D1PY4hCKbGwgaf1_vKmf5-72wymsIvDnc5FOg3-6bHo_CTCoL91m8HM0XI6SLhGAWI4MYBzfiiL7ZEzuRhG-rTs5vrokOUzdJUEnIomOECdYjbNT64aakPe0vgEtl1WZ2j3rDx5aiYQ8c8zxRJIeqWkWwQPPJ-lGwzFNyGTmElTviIDbkhp5S985gL9pupc7uYlM2XnZoCrbMW2Ewu4yxA-PujcfmKPz1l3VztV2NUsD8kdxbVSigbrpxtiRCwgEoLUcIb42w2K-E_lDobhJRhdNNu7wgNdrbcx8kQb_1vQweI6MVBFWueoCObUb7yAv260ac3EtqpL334_ieGc8nCCUt78xURM2Ql9xti4124KI2_vmyXDbN7lpm-z5RGbx0_bxaHPf_3TFJDgqcO68Csz_97Lm8DxZzvgQ2z5zG-TN5fBdI3PfUPNMrbW7ciaH7LYxmF2JYdcuMNZMakoorag3GzZVF7kF6MEnvEIqGZGWn8Jf-mho0VSO_1vf0wwABBOrBfUYDTwaqR7GMCbb2hw06Vj5pX_i9glTO7pSSCvHtpg3VKQQXMcz_bWe2bG1-njW2Z-pSsI4Tc4XcJX7g"
+}
+
+
+iat: 1583183136,
+exp: 1583183256,
+
+
+
+---
+Hosting Don Web
+
+c1461447_db_vacs  zovu97VEgo
+
+DATABASE_URL=mysql://c1461447_db_vacs:zovu97VEgo@localhost:3306/c1461447_db_vacs

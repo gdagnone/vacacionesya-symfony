@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RegistroController!{% endblock %}
+
+{% block body %}
+
+{% for flash_message in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flash_message }}
+    </div>
+{% endfor %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 cursor">
+           
+
+            <div class="bg-white rounded p-4 my-5" >
+                
+                    <div class="p2-flex-grow-2 bd-highlight">
+                        <h1>Registro</h1>
+                        {{ form(formulario)}}
+                    </div>
+                
+
+                
+            
+        </div>
+
+
+{% endblock %}

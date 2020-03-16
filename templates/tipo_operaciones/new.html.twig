@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TipoOperaciones{% endblock %}
+
+{% block body %}
+
+    
+    <h3>Insertar Tipo Operaciones</h1>
+
+    {{ include('tipo_operaciones/_form.html.twig') }}
+
+    <a href="{{ path('tipo_operaciones_index') }}">Volver</a>
+{% endblock %}
